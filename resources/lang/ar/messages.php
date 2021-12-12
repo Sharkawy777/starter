@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'reset' => 'Your password has been reset!'
+    'reset' => 'تم تغيير كلمة المرور بنجاح!',
+    'name_required'=>'إسم العرض مطلوب'
 
 
 ];

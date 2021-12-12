@@ -13,6 +13,8 @@ return [
     |
     */
 
-    'reset' => 'Your password has been reset!'
+    'reset' => 'Your password has been reset!',
+    'name_required'=>'offer name required',
+
 
 ];

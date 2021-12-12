@@ -15,11 +15,17 @@ class UserController extends Controller
     }
     public function getIndex(){
 //
-        $data = [];
-        $data['data']=5;
-        $data['id']=777;
-        $data['name']='sharkawy';
-
-        return view('welcome',$data);
+//        $data = [];
+//        $data['data']=5;
+//        $data['id']=777;
+//        $data['name']='sharkawy';
+        $obj = new \stdClass();
+        $obj -> name = 'shark';
+        $obj -> age = 22;
+        $obj -> id = 41710020;
+        $obj -> college = 'CS';
+        return view('welcome',compact('obj'));
+//        return view('welcome',$data);
     }
+
 }
