@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\VideoViewer;
 use App\Models\Offer;
 use App\Models\Video;
+use App\Scopes\offerScope;
 use App\Traits\OfferTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -69,8 +70,28 @@ class CrudController extends Controller
 
     public function getAllOffers()
     {
-        $offers = Offer::select('id', 'photo', 'name', 'price', 'details')->get();
-        return view('offers.all', compact('offers'));
+//        $offers = Offer::select('id', 'photo', 'name', 'price', 'details')->get();
+//        return view('offers.all', compact('offers'));
+
+        ################################ paginate result  ############################
+        $offers = Offer::select('id', 'photo', 'name', 'price', 'details')->paginate(PAGINATION_COUNT);
+
+        return view('offers.pagination',compact('offers'));
+        ################################ End paginate ############################
+
+    }
+
+    public function getAllInactiveOffers(){
+        // where whereNull whereNotNull whereIn
+//        $offers = Offer::where('status',0)->paginate(PAGINATION_COUNT);
+//        return view('offers.pagination',compact('offers'));
+
+//        return $offers = Offer::Inactive()->paginate(PAGINATION_COUNT);
+//        return $offers = Offer::Invalid()->paginate(PAGINATION_COUNT);
+                                //global scope
+//        return $offers = Offer::paginate(PAGINATION_COUNT);
+        // without global scope - remove global scope
+        return $offers = Offer::withoutGlobalScope(offerScope::class)->paginate(PAGINATION_COUNT);
     }
 
     public function editOffer($offer_id)

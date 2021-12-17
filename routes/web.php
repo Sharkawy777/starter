@@ -87,6 +87,7 @@
 //
 //Route::get('second','Admin\SecondController@showString');
 
+const PAGINATION_COUNT = 7;
 Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
@@ -116,6 +117,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('/edit/{offer_id}', 'CrudController@editOffer');
         Route::post('/update/{offer_id}', 'CrudController@updateOffer')->name('offers.update');
         Route::get('/delete/{offer_id}', 'CrudController@deleteOffer')->name('offers.delete');
+        Route::get('/get-all-inactive-offers','CrudController@getAllInactiveOffers')->name('offers.all');
 
     });
 
@@ -163,4 +165,47 @@ Route::get('get-user-not-has-phone','Relation\RelationsController@getUserNotHasP
 
 Route::get('get-user-where-has-phone-with-condition','Relation\RelationsController@getUserWhereHasPhoneWithCondition');
 
+
+######################## One to many RelationShip #######################
+
+Route::get('hospital-has-many','Relation\RelationsController@getHospitalDoctors');
+
+Route::get('hospitals','Relation\RelationsController@hospitals')->name('hospital.all');
+
+Route::get('hospitals/{hospital_id}','Relation\RelationsController@deleteHospital')->name('hospital.delete');
+
+Route::get('doctors/{hospital_id}','Relation\RelationsController@doctors')->name('hospitals.doctors');
+
+Route::get('hospitals-has-doctors','Relation\RelationsController@hospitalsHasDoctors');
+
+Route::get('hospitals-has-doctors-male','Relation\RelationsController@hospitalsHasOnlyMaleDoctors');
+
+Route::get('hospitals-not-has-doctors','Relation\RelationsController@hospitalsNotHasDoctors');
+
+######################### End One to many RelationShip ######################
+
+######################### Many to many RelationShip #########################
+Route::get('doctors-services','Relation\RelationsController@getDoctorServices');
+
+Route::get('services-doctors','Relation\RelationsController@getServicesDoctor');
+
+Route::get('doctors/services/{doctor_id}','Relation\RelationsController@getDoctorServicesById')->name('doctor.services');
+
+Route::post('save-services-to-doctor','Relation\RelationsController@SaveServicesToDoctors')->name('save.doctors.services');
+
+######################### EndMany to many RelationShip ######################
+
+######################### Has One Through RelationShip ######################
+Route::get('has-one-through','Relation\RelationsController@getPatientDoctor');
+
+Route::get('has-many-through','Relation\RelationsController@getCountryDoctors');
+######################### End Has One Through RelationShip ######################
+
+
 ######################## End Relations Routes ######################
+
+######################## Accessors and mutator ####################
+Route::get('accessors','Relation\RelationsController@getDoctors'); //get data
+
+
+######################## Accessors and mutator ####################
